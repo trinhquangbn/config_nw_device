@@ -132,10 +132,3 @@ inventory không ghi mật khẩu ra file, sinh inventory cho Ansible.
   thật nằm trong file `.env`, không đưa lên Git.
 - **Mẫu thiết kế**: Factory (`DeviceFactory`). Ngoài ra `NetworkDevice` dùng
   context manager (`with device:`) để tự kết nối và ngắt kết nối.
-
-## 9. Môi trường thực nghiệm
-
-Hướng dẫn dựng topology trên GNS3 từng bước (cài đặt, nạp image, nối dây, cấu hình
-ban đầu cho thiết bị, chạy 9 kịch bản kiểm thử) nằm trong file `HUONG_DAN_GNS3.md`.
-
-Kịch bản quay video demo (10 cảnh, khoảng 9–10 phút) nằm trong file `KICH_BAN_DEMO.md`.
