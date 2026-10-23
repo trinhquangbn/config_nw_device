@@ -1,0 +1,14 @@
+{
+  "outside_interface": "GigabitEthernet2",
+  "outside_ip": "dhcp",
+  "outside_mask": "",
+  "default_gateway": "192.168.122.1",
+  "dns": "8.8.8.8",
+  "nat_acl": "NAT_INSIDE",
+  "inside_interfaces": ["GigabitEthernet4.10", "GigabitEthernet4.20", "GigabitEthernet4.30"],
+  "inside_networks": [
+    {"network": "10.10.10.0", "wildcard": "0.0.0.255"},
+    {"network": "10.10.20.0", "wildcard": "0.0.0.255"},
+    {"network": "10.10.30.0", "wildcard": "0.0.0.255"}
+  ]
+}

@@ -1,0 +1,14 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+venv-win/
+data/backups/*
+!data/backups/.gitkeep
+data/reports/*
+!data/reports/.gitkeep
+logs/*
+!logs/.gitkeep
+config/inventory.yaml
+.pytest_cache/

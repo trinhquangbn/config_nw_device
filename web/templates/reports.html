@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Reports - NetAuto{% endblock %}
+{% block content %}
+<h2>Báo cáo đã tạo</h2>
+<div class="card">
+<ul>
+  {% for f in files %}<li>{{ f.name }}</li>{% else %}<li>Chưa có báo cáo nào.</li>{% endfor %}
+</ul>
+</div>
+{% endblock %}

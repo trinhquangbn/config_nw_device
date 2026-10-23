@@ -1,0 +1,9 @@
+{
+  "acl_name": "HR_IN",
+  "rules": [
+    {"action": "deny",   "source": "10.10.10.0 0.0.0.255", "dest": "10.10.30.0 0.0.0.255"},
+    {"action": "permit", "source": "any", "dest": "any"}
+  ],
+  "apply_interface": "GigabitEthernet2.10",
+  "direction": "in"
+}

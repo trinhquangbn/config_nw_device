@@ -1,0 +1,31 @@
+---
+# Cấu hình VLAN hàng loạt bằng template Jinja2 (yêu cầu chức năng số 5).
+#
+# Chạy từ thư mục ansible/.
+# Chạy thử (dry-run), chỉ xem thay đổi, không áp dụng:
+#   ansible-playbook -i inventory/hosts.yml playbooks/push_config.yml --ask-vault-pass --check --diff
+# Áp dụng thật:
+#   ansible-playbook -i inventory/hosts.yml playbooks/push_config.yml --ask-vault-pass
+- name: Cấu hình VLAN cho các switch
+  hosts: ios_devices:eos_devices
+  gather_facts: false
+  vars:
+    vlans:
+      - id: 10
+        name: HR
+      - id: 20
+        name: DEV
+      - id: 30
+        name: IT
+  tasks:
+    - name: Áp cấu hình VLAN lên thiết bị Cisco IOS
+      cisco.ios.ios_config:
+        src: ../templates/vlan.j2
+        save_when: modified
+      when: ansible_network_os == 'cisco.ios.ios'
+
+    - name: Áp cấu hình VLAN lên thiết bị Arista EOS
+      arista.eos.eos_config:
+        src: ../templates/vlan.j2
+        save_when: modified
+      when: ansible_network_os == 'arista.eos.eos'

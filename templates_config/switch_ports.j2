@@ -1,0 +1,24 @@
+! Cấu hình VLAN, cổng trunk và cổng access cho switch có quản lý
+! (Cisco IOSvL2 / Catalyst, Arista EOS).
+! Biến: vlans, trunk_ports, access_ports, trunk_encapsulation (chỉ Cisco cần)
+{% for v in vlans %}
+vlan {{ v.id }}
+ name {{ v.name }}
+{% endfor %}
+{% for p in trunk_ports %}
+interface {{ p.name }}
+ description {{ p.description }}
+{% if trunk_encapsulation is defined %}
+ switchport trunk encapsulation {{ trunk_encapsulation }}
+{% endif %}
+ switchport mode trunk
+ switchport trunk allowed vlan {{ p.allowed_vlans }}
+ no shutdown
+{% endfor %}
+{% for p in access_ports %}
+interface {{ p.name }}
+ description {{ p.description }}
+ switchport mode access
+ switchport access vlan {{ p.vlan }}
+ no shutdown
+{% endfor %}

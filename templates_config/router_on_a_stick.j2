@@ -1,0 +1,13 @@
+! Định tuyến giữa các VLAN (router-on-a-stick) cho các phòng ban.
+! Mỗi phòng ban là một sub-interface trên cùng một cổng vật lý nối với switch.
+! Biến: parent_interface, vlans: [{id, name, gateway, mask, ...}]
+interface {{ parent_interface }}
+ description TRUNK-to-Switch1
+ no ip address
+ no shutdown
+{% for v in vlans %}
+interface {{ parent_interface }}.{{ v.id }}
+ description {{ v.name }}
+ encapsulation dot1Q {{ v.id }}
+ ip address {{ v.gateway }} {{ v.mask }}
+{% endfor %}

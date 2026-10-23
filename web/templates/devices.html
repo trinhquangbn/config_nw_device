@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Devices - NetAuto{% endblock %}
+{% block content %}
+<h2>Danh sách thiết bị</h2>
+<div class="card">
+  <form method="post" action="{{ url_for('collect') }}" onsubmit="return true;">
+    <table>
+      <tr><th></th><th>Tên</th><th>Host</th><th>Vendor</th><th>Nhóm</th><th>Tags</th></tr>
+      {% for d in devices %}
+      <tr>
+        <td><input type="checkbox" name="names" value="{{ d.name }}" form="actionform"></td>
+        <td>{{ d.name }}</td><td>{{ d.host }}</td><td>{{ d.device_type }}</td>
+        <td>{{ d.group }}</td><td>{{ (d.tags or [])|join(', ') }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </form>
+  <form id="actionform">
+    <button type="submit" formaction="{{ url_for('collect') }}" formmethod="post">Thu thập thông tin (Collect Facts)</button>
+    <button type="submit" formaction="{{ url_for('backup') }}" formmethod="post">Sao lưu (Backup)</button>
+  </form>
+</div>
+{% endblock %}

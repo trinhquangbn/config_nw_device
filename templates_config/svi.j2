@@ -1,0 +1,14 @@
+! Định tuyến giữa các VLAN bằng SVI (Switch Virtual Interface) trên switch lớp 3
+! (Cisco IOSvL2, Catalyst 3560/3650...). Không dùng được trên router CSR1000v.
+! Biến (dùng chung file phong_ban_vars.json): vlans: [{id, name, gateway, mask}]
+!
+! Bật định tuyến trên switch (switch lớp 3 mặc định chưa định tuyến)
+ip routing
+{% for v in vlans %}
+vlan {{ v.id }}
+ name {{ v.name }}
+interface Vlan{{ v.id }}
+ description {{ v.name }}
+ ip address {{ v.gateway }} {{ v.mask }}
+ no shutdown
+{% endfor %}

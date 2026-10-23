@@ -1,0 +1,29 @@
+! Cho các phòng ban đi Internet: cổng ra ngoài, NAT (PAT) và default route.
+! Biến: outside_interface, outside_ip ("dhcp" hoặc địa chỉ IP), outside_mask,
+!       default_gateway, dns, nat_acl, inside_interfaces, inside_networks
+!
+! 1. Cổng đi ra Internet (nối với node NAT của GNS3 hoặc modem/router nhà mạng)
+interface {{ outside_interface }}
+ description TO-INTERNET
+{% if outside_ip == "dhcp" %}
+ ip address dhcp
+{% else %}
+ ip address {{ outside_ip }} {{ outside_mask }}
+{% endif %}
+ ip nat outside
+ no shutdown
+! 2. Các cổng phía trong (gateway của từng phòng ban)
+{% for intf in inside_interfaces %}
+interface {{ intf }}
+ ip nat inside
+{% endfor %}
+! 3. Những mạng nội bộ được phép đi Internet
+ip access-list standard {{ nat_acl }}
+{% for net in inside_networks %}
+ permit {{ net.network }} {{ net.wildcard }}
+{% endfor %}
+! 4. NAT nhiều máy ra một IP của cổng ngoài (PAT / overload)
+ip nat inside source list {{ nat_acl }} interface {{ outside_interface }} overload
+! 5. Default route: gói tin không biết đi đâu thì gửi ra Internet
+ip route 0.0.0.0 0.0.0.0 {{ default_gateway }}
+ip name-server {{ dns }}

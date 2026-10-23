@@ -1,0 +1,11 @@
+! Danh sách điều khiển truy cập (ACL) mở rộng, có thể gắn luôn vào một cổng.
+! Biến: acl_name, rules: [{action, proto (mặc định ip), source, dest}],
+!       apply_interface và direction (không bắt buộc)
+ip access-list extended {{ acl_name }}
+{% for rule in rules %}
+ {{ rule.action }} {{ rule.proto | default('ip') }} {{ rule.source }} {{ rule.dest }}
+{% endfor %}
+{% if apply_interface is defined %}
+interface {{ apply_interface }}
+ ip access-group {{ acl_name }} {{ direction | default('in') }}
+{% endif %}

@@ -1,0 +1,9 @@
+# Biến dùng chung cho mọi thiết bị.
+# Tài khoản đăng nhập lấy từ file vault.yml (đã mã hóa bằng Ansible Vault).
+ansible_user: "{{ vault_ansible_user }}"
+ansible_password: "{{ vault_ansible_password }}"
+ansible_become: true
+ansible_become_method: enable
+ansible_become_password: "{{ vault_ansible_become_password }}"
+
+backup_root: "../../data/backups/ansible"

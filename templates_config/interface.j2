@@ -1,0 +1,14 @@
+! Interface / IP provisioning template
+! context: { interfaces: [{name: "GigabitEthernet0/1", description: "Uplink", ip: "10.0.0.1", mask: "255.255.255.252", enabled: true}] }
+{% for intf in interfaces %}
+interface {{ intf.name }}
+ description {{ intf.description }}
+{% if intf.ip %}
+ ip address {{ intf.ip }} {{ intf.mask }}
+{% endif %}
+{% if intf.enabled %}
+ no shutdown
+{% else %}
+ shutdown
+{% endif %}
+{% endfor %}

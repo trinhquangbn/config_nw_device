@@ -1,0 +1,5 @@
+{
+  "interfaces": [
+    {"name": "GigabitEthernet0/1", "description": "Uplink", "ip": "10.0.0.1", "mask": "255.255.255.252", "enabled": true}
+  ]
+}

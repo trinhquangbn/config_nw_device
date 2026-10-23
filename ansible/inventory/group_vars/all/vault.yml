@@ -1,0 +1,7 @@
+# File này chứa mật khẩu nên PHẢI mã hóa trước khi dùng:
+#   ansible-vault encrypt group_vars/all/vault.yml
+# Sau khi mã hóa, nội dung file chỉ còn là chuỗi đã mã hóa.
+vault_ansible_user: admin
+vault_ansible_password: Lab@123
+vault_ansible_secret: Lab@123
+vault_ansible_become_password: Lab@123

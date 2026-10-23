@@ -1,0 +1,16 @@
+{
+  "trunk_encapsulation": "dot1q",
+  "vlans": [
+    {"id": 10, "name": "HR"},
+    {"id": 20, "name": "DEV"},
+    {"id": 30, "name": "IT"}
+  ],
+  "trunk_ports": [
+    {"name": "GigabitEthernet0/0", "description": "TRUNK-to-R1", "allowed_vlans": "10,20,30"}
+  ],
+  "access_ports": [
+    {"name": "GigabitEthernet0/1", "description": "HR",  "vlan": 10},
+    {"name": "GigabitEthernet0/2", "description": "DEV", "vlan": 20},
+    {"name": "GigabitEthernet0/3", "description": "IT",  "vlan": 30}
+  ]
+}

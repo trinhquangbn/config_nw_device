@@ -1,0 +1,37 @@
+# Sample device inventory.
+# Credentials are NEVER stored here in plaintext: each device references a
+# "credentials_env" prefix, and InventoryManager resolves
+# <PREFIX>_USERNAME / <PREFIX>_PASSWORD / <PREFIX>_SECRET from environment
+# variables (see .env.example).
+devices:
+  - name: R1-CORE
+    host: 192.168.100.11
+    port: 22
+    device_type: cisco_ios
+    group: core
+    tags: [core, ospf]
+    credentials_env: LAB
+
+  - name: SW1-ACCESS
+    host: 192.168.100.12
+    port: 22
+    device_type: cisco_ios
+    group: access
+    tags: [access, vlan, ospf]
+    credentials_env: LAB
+
+  - name: SW2-ARISTA
+    host: 192.168.100.13
+    port: 22
+    device_type: arista_eos
+    group: access
+    tags: [access, vlan]
+    credentials_env: LAB
+
+  - name: FW1-VYOS
+    host: 192.168.100.14
+    port: 22
+    device_type: vyos
+    group: edge
+    tags: [edge, acl]
+    credentials_env: LAB

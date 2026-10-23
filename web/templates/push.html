@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Push Config - NetAuto{% endblock %}
+{% block content %}
+<h2>Cấu hình hàng loạt (Batch Push)</h2>
+<form method="post" class="card">
+  <h4>1. Chọn thiết bị</h4>
+  {% for d in devices %}
+    <label><input type="checkbox" name="names" value="{{ d.name }}"> {{ d.name }} ({{ d.host }} / {{ d.device_type }})</label><br>
+  {% endfor %}
+
+  <h4>2. Chọn template</h4>
+  <select name="template" id="template">
+    {% for t in templates %}<option value="{{ t }}">{{ t }}</option>{% endfor %}
+  </select>
+  <pre id="template-hint" class="hint"></pre>
+
+  <h4>3. Biến (JSON)</h4>
+  <p>Lấy từ file có sẵn:
+    <select id="var-file">
+      <option value="">-- Tự nhập --</option>
+      {% for f in var_files %}<option value="{{ f }}">{{ f }}</option>{% endfor %}
+    </select>
+  </p>
+  <textarea name="vars_json" id="vars-json" placeholder='Nhập biến dạng JSON, ví dụ {"vlans": [{"id": 10, "name": "USERS"}]}'></textarea>
+
+  <p><label><input type="checkbox" name="dry_run" checked> Dry-run (chỉ xem trước, không áp dụng)</label></p>
+  <input type="submit" value="Thực thi">
+</form>
+
+<script>
+  // Dữ liệu do Flask truyền sang (tojson chuyển dict Python thành object JavaScript).
+  const hints = {{ hints | tojson }};          // template -> phần chú thích đầu template
+  const varFiles = {{ var_files | tojson }};   // tên file -> nội dung file JSON
+  const suggested = {{ suggested | tojson }};  // template -> file biến gợi ý
+
+  const templateSelect = document.getElementById("template");
+  const hintBox = document.getElementById("template-hint");
+  const varFileSelect = document.getElementById("var-file");
+  const varsText = document.getElementById("vars-json");
+
+  // Chọn file biến: điền nội dung file vào ô nhập (vẫn sửa tay được).
+  function loadVarFile() {
+    const file = varFileSelect.value;
+    varsText.value = file ? varFiles[file] : "";
+  }
+
+  // Đổi template: hiện gợi ý và tự chọn file biến đi kèm (nếu có).
+  function changeTemplate() {
+    const template = templateSelect.value;
+    hintBox.textContent = hints[template] || "";
+    varFileSelect.value = suggested[template] || "";
+    loadVarFile();
+  }
+
+  templateSelect.addEventListener("change", changeTemplate);
+  varFileSelect.addEventListener("change", loadVarFile);
+  changeTemplate();  // chạy 1 lần khi mở trang
+</script>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - NetAuto{% endblock %}
+{% block content %}
+<h2>Tổng quan hệ thống</h2>
+<div class="card">
+  <div class="stat"><b>{{ stats.total_devices }}</b>Thiết bị</div>
+  <div class="stat"><b>{{ stats.groups|length }}</b>Nhóm</div>
+  <div class="stat"><b>{{ stats.total_backups }}</b>Bản sao lưu</div>
+</div>
+<div class="card">
+  <h3>Thiết bị & số bản backup</h3>
+  <table>
+    <tr><th>Tên</th><th>Host</th><th>Vendor</th><th>Nhóm</th><th># Backup</th></tr>
+    {% for d in devices %}
+    <tr>
+      <td>{{ d.name }}</td><td>{{ d.host }}</td><td>{{ d.device_type }}</td>
+      <td>{{ d.group }}</td><td>{{ backup_counts.get(d.name, 0) }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

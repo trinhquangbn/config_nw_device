@@ -1,0 +1,21 @@
+---
+# Sao lưu running-config của toàn bộ thiết bị (yêu cầu chức năng số 4).
+# Chạy từ thư mục ansible/:
+#   ansible-playbook -i inventory/hosts.yml playbooks/backup_config.yml --ask-vault-pass
+- name: Sao lưu cấu hình thiết bị mạng
+  hosts: ios_devices:eos_devices
+  gather_facts: false
+  tasks:
+    - name: Sao lưu cấu hình Cisco IOS
+      cisco.ios.ios_config:
+        backup: true
+        backup_options:
+          dir_path: "{{ backup_root }}/{{ inventory_hostname }}"
+      when: ansible_network_os == 'cisco.ios.ios'
+
+    - name: Sao lưu cấu hình Arista EOS
+      arista.eos.eos_config:
+        backup: true
+        backup_options:
+          dir_path: "{{ backup_root }}/{{ inventory_hostname }}"
+      when: ansible_network_os == 'arista.eos.eos'

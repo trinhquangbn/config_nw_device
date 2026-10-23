@@ -1,0 +1,9 @@
+{
+  "parent_interface": "GigabitEthernet2",
+  "dns": "8.8.8.8",
+  "vlans": [
+    {"id": 10, "name": "HR",  "network": "10.10.10.0", "gateway": "10.10.10.1", "mask": "255.255.255.0"},
+    {"id": 20, "name": "DEV", "network": "10.10.20.0", "gateway": "10.10.20.1", "mask": "255.255.255.0"},
+    {"id": 30, "name": "IT",  "network": "10.10.30.0", "gateway": "10.10.30.1", "mask": "255.255.255.0"}
+  ]
+}

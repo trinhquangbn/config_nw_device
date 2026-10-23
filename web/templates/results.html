@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Results - NetAuto{% endblock %}
+{% block content %}
+<h2>Kết quả: {{ action }}</h2>
+{% if rendered_config %}
+<div class="card"><h4>Cấu hình đã render</h4><pre>{{ rendered_config|join('\n') }}</pre></div>
+{% endif %}
+<div class="card">
+<table>
+  <tr><th>Thiết bị</th><th>Host</th><th>Trạng thái</th><th>Chi tiết</th></tr>
+  {% for r in results %}
+  <tr>
+    <td>{{ r.device }}</td><td>{{ r.host }}</td>
+    <td class="{{ 'ok' if r.success else 'fail' }}">{{ 'OK' if r.success else 'FAILED' }}</td>
+    <td>{{ r.error or r.backup_file or r.data or (r.planned_lines|join(', ') if r.planned_lines else '') }}</td>
+  </tr>
+  {% endfor %}
+</table>
+</div>
+{% endblock %}

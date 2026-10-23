@@ -1,0 +1,6 @@
+! VLAN provisioning template
+! context: { vlans: [{id: 10, name: "USERS"}, {id: 20, name: "VOICE"}] }
+{% for vlan in vlans %}
+vlan {{ vlan.id }}
+ name {{ vlan.name }}
+{% endfor %}

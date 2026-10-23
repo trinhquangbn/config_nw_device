@@ -1,0 +1,9 @@
+! Cấp IP tự động (DHCP) cho máy tính của từng phòng ban.
+! Biến: vlans: [{name, network, gateway, mask}], dns
+{% for v in vlans %}
+ip dhcp excluded-address {{ v.gateway }}
+ip dhcp pool {{ v.name }}
+ network {{ v.network }} {{ v.mask }}
+ default-router {{ v.gateway }}
+ dns-server {{ dns }}
+{% endfor %}
