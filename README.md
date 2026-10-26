@@ -132,3 +132,7 @@ inventory không ghi mật khẩu ra file, sinh inventory cho Ansible.
   thật nằm trong file `.env`, không đưa lên Git.
 - **Mẫu thiết kế**: Factory (`DeviceFactory`). Ngoài ra `NetworkDevice` dùng
   context manager (`with device:`) để tự kết nối và ngắt kết nối.
+  
+## 9. Video Demo
+
+https://drive.google.com/file/d/1yRhdDCLwyN3728Xxr3GhXAnobBdKDwmG/view?usp=sharing
