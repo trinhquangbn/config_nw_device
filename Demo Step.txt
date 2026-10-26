@@ -1,0 +1,60 @@
+Setup ban đầu:
+
+enable
+configure terminal
+hostname R1-CORE
+ip domain-name lab.local
+
+username admin privilege 15 secret Lab@123
+enable secret Lab@123
+
+interface GigabitEthernet1
+ description MGMT
+ ip address 192.168.169.131 255.255.255.0
+ no shutdown
+! 3. Bật SSH
+crypto key generate rsa modulus 2048
+ip ssh version 2
+line vty 0 4
+ login local
+ transport input ssh
+end
+write memory
+
+##### Kiểm tra kết nối và lấy thông tin
+python main.py check
+python main.py collect --output json
+
+### Backup
+python main.py backup
+
+# Check va restore
+python main.py diff --device R1-CSR
+dir data\backups\R1-CSR
+python main.py restore --device R1-CSR --file data\backups\R1-CORE\file_can_restore.cfg
+### Cấu hính IP router interface
+python main.py push --group core --template router_on_a_stick.j2 --vars phong_ban_vars.json --dry-run  #check cú pháp, chưa thực hiện thực trên router
+
+python main.py push --group core --template router_on_a_stick.j2 --vars phong_ban_vars.json
+
+show ip interface brief
+
+### Tạo DHCP Pool cho các phòng ban
+python main.py push --group core --template dhcp.j2 --vars phong_ban_vars.json
+
+### ACL chặn HR truy cập IT
+python main.py push --group core --template acl.j2 --vars acl_vars.json
+
+### Tự động rollbackup khi bị lỗi
+python main.py push --group core --template loi_rollback.j2
+Select-String -Path logs\netauto.log -Pattern "rollback"
+
+
+### Chạy giao diện web
+python web\app.py
+
+### Ansible
+
+python main.py ansible-inventory
+
+python3 main.py ansible-run --playbook backup_config.yml --check # Cần môi trường WSL hoặc host là linux
