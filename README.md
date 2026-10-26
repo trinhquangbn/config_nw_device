@@ -1,8 +1,7 @@
 # NetAuto - Công cụ cấu hình mạng hàng loạt đa nhà cung cấp
 
 Bài tập lớn môn Lập trình hướng đối tượng. Đề tài: **Công cụ cấu hình hàng
-loạt đa nhà cung cấp** (template Jinja2, chạy thử dry-run, áp cấu hình song
-song, tự rollback khi lỗi).
+loạt đa nhà cung cấp**
 
 Thư viện tự động hóa mạng chính: **Netmiko**.
 
@@ -10,7 +9,7 @@ Thư viện tự động hóa mạng chính: **Netmiko**.
 
 | Thư viện | Ưu điểm | Nhược điểm |
 | --- | --- | --- |
-| **Netmiko** (nhóm chọn) | Hỗ trợ sẵn nhiều hãng qua SSH, cách dùng đơn giản, dễ học | Chỉ làm việc qua CLI, không có NETCONF/REST |
+| **Netmiko** | Hỗ trợ sẵn nhiều hãng qua SSH, cách dùng đơn giản, dễ học | Chỉ làm việc qua CLI, không có NETCONF/REST |
 | Paramiko | Linh hoạt, là nền tảng của Netmiko | Phải tự xử lý prompt, chờ kết quả, tốn nhiều công |
 | NAPALM | Dữ liệu trả về đã được chuẩn hóa | Ít hãng hơn, không mạnh khi gửi lệnh CLI tùy ý |
 | Nornir | Chạy song song và quản lý inventory tốt | Phải học thêm framework, vẫn cần Netmiko để kết nối |
