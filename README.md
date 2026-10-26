@@ -92,15 +92,15 @@ python main.py ansible-run --playbook backup_config.yml --check
 
 Mỗi lệnh đều ghi log vào `logs/netauto.log` và tạo báo cáo trong `data/reports/`.
 
-## 5. Giao diện web (điểm cộng)
-python -c "import secrets; print(secrets.token_hex(32))" 
+## 5. Giao diện web (điểm cộng) 
 
 ```bash
+Tạo Secret: python -c "import secrets; print(secrets.token_hex(32))"
 python web/app.py
 # Mở trình duyệt: http://localhost:5000
 ```
 
-## 6. Ansible Playbook (điểm cộng)
+## 6. Ansible Playbook
 
 Xem `ansible/README.md`.
 
